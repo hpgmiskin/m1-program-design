@@ -8,6 +8,7 @@ public:
 
   friend ostream& operator << (ostream& o, const Expression& e){
     e.print(o);
+    o << " = " << e.value();
     return o;
   }
 };
@@ -18,7 +19,9 @@ private:
 
 protected:
   virtual void print(ostream& o) const {
-    o << "(" << value() << ")";
+    if (value() < 0) o << "(";
+    o << value();
+    if (value() < 0) o << ")";
   }
 
 public:
@@ -35,7 +38,11 @@ protected:
   virtual int calculate(int v1, int v2) const = 0;
 
   virtual void print(ostream& o) const {
-    o << "(" << left() << symbol() << right() << ") = " << value();
+    o << "(";
+    left().print(o);
+    o << symbol();
+    right().print(o);
+    o << ")";
   }
 
 public:
@@ -50,6 +57,7 @@ public:
   }
   
   virtual const char *symbol() const = 0;
+
   virtual int value() const {
     return calculate(_left.value(), _right.value());
   } };
