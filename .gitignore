@@ -1,8 +1,12 @@
 #Mac files
 .DS_Store
 
+#Vim
+*.swp
+
 #Object files
 *.o
+*.out
 
 #Binary files
 goldfish/goldfish
